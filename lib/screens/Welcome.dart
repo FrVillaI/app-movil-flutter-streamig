@@ -1,74 +1,71 @@
 import 'package:flutter/material.dart';
-import 'Login.dart';
-import 'Registro.dart';
-
-void main() {
-  runApp(Welcome());
-}
+import 'login.dart';
+import 'registro.dart';
 
 class Welcome extends StatelessWidget {
-  const Welcome({super.key});
+  const Welcome({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Welcome",
-      home: Home(),
-    );
-  }
-}
-
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome'),
+        title: const Text('Bienvenido'),
       ),
-      body: Cuerpo(context),
+      body: const WelcomeBody(),
     );
   }
 }
 
-Widget Cuerpo(context) {
-  return Container(
-      decoration: const BoxDecoration(color: Color.fromARGB(255, 96, 143, 114)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[BotonInicio(context), BotonRegistro(context)],
-      ));
-}
+class WelcomeBody extends StatelessWidget {
+  const WelcomeBody({Key? key}) : super(key: key);
 
-Widget BotonInicio(context) {
-  return (ElevatedButton(
-    onPressed: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Login()));
-    },
-    child: Text("Iniciar Sesión"),
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 8, 8, 8),
-    ),
-  ));
-}
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(255, 96, 143, 114),
+      ),
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildLoginButton(context),
+            const SizedBox(height: 16.0),
+            _buildRegisterButton(context),
+          ],
+        ),
+      ),
+    );
+  }
 
-Widget BotonRegistro(context) {
-  return (ElevatedButton(
-    onPressed: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Registro()));
-    },
-    child: Text("Registrarse"),
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 8, 8, 8),
-    ),
-  ));
+  Widget _buildLoginButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+        );
+      },
+      child: const Text('Iniciar Sesión'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 8, 8, 8),
+      ),
+    );
+  }
+
+  Widget _buildRegisterButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Registro()),
+        );
+      },
+      child: const Text('Registrarse'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 8, 8, 8),
+      ),
+    );
+  }
 }

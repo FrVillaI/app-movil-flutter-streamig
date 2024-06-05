@@ -1,8 +1,8 @@
-#Wed Jun 05 10:19:07 ECT 2024
-base.0=C\:\\Users\\ItsqmetEstudiantes\\Documents\\I\\MoviIII\\app_streming_pro\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\ItsqmetEstudiantes\\Documents\\I\\MoviIII\\app_streming_pro\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\ItsqmetEstudiantes\\Documents\\I\\MoviIII\\app_streming_pro\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.3=C\:\\Users\\ItsqmetEstudiantes\\Documents\\I\\MoviIII\\app_streming_pro\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\5\\classes.dex
+#Wed Jun 05 16:05:23 ECT 2024
+base.0=D\:\\app-movil-flutter-streamig\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\app-movil-flutter-streamig\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=D\:\\app-movil-flutter-streamig\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.3=D\:\\app-movil-flutter-streamig\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\5\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=1/classes.dex

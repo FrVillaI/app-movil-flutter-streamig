@@ -1,39 +1,20 @@
-import 'package:app_streming_pro/screens/Welcome.dart';
 import 'package:flutter/material.dart';
+import './screens/Welcome.dart';
 
-void main(){
-  runApp(streamig());
+void main() {
+  runApp(MyApp());
 }
 
-class streamig extends StatelessWidget {
-  const streamig({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
-    );
-  }
-}
-
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _CuerpoState();
-}
-
-class _CuerpoState extends State<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      /*
-      appBar: AppBar(
-        title: const Text('Main'),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      */
-      body: Welcome(),
+      home: Welcome(),
     );
   }
 }

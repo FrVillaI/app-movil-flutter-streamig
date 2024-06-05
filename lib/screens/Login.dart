@@ -1,121 +1,136 @@
 import 'package:flutter/material.dart';
-import 'Registro.dart';
+import 'registro.dart';
 import 'Catalogo.dart';
-
-void main() {
-  runApp(Login());
-}
+import 'Contenidos.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  const Login({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Login",
-      home: Home(),
-    );
-  }
-}
-
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Cuerpo(context),
+      body: const LoginBody(),
     );
   }
 }
 
-Widget Cuerpo(context) {
-  return Container(
+class LoginBody extends StatefulWidget {
+  const LoginBody({Key? key}) : super(key: key);
+
+  @override
+  _LoginBodyState createState() => _LoginBodyState();
+}
+
+class _LoginBodyState extends State<LoginBody> {
+  final TextEditingController _correoController = TextEditingController();
+  final TextEditingController _contraseniaController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
       decoration: const BoxDecoration(color: Color.fromARGB(255, 96, 143, 114)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Correo(),
-          Contrasenia(),
-          BotonInicio(context),
-          BotonRegistro(context)
-        ],
-      ));
-}
+      child: Center(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildCorreoField(),
+              const SizedBox(height: 16.0),
+              _buildContraseniaField(),
+              const SizedBox(height: 16.0),
+              _buildLoginButton(context),
+              const SizedBox(height: 16.0),
+              _buildRegistroButton(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-Widget Correo() {
-  return Container(
-      child: TextField(
-    controller: _correo,
-    decoration: const InputDecoration(
-        hintText: "Ingresar el correo electronico",
-        fillColor: Color.fromARGB(255, 116, 116, 116),
-        filled: true),
-  ));
-}
+  Widget _buildCorreoField() {
+    return TextFormField(
+      controller: _correoController,
+      decoration: const InputDecoration(
+        hintText: 'Ingresar el correo electrónico',
+        fillColor: Colors.white,
+        filled: true,
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor ingrese su correo';
+        }
+        return null;
+      },
+    );
+  }
 
-Widget Contrasenia() {
-  return Container(
-      child: TextField(
-    controller: _contrasenia,
-    decoration: const InputDecoration(
-        hintText: "Ingresar la contraseña",
-        fillColor: Color.fromARGB(255, 116, 116, 116),
-        filled: true),
-  ));
-}
+  Widget _buildContraseniaField() {
+    return TextFormField(
+      controller: _contraseniaController,
+      decoration: const InputDecoration(
+        hintText: 'Ingresar la contraseña',
+        fillColor: Colors.white,
+        filled: true,
+      ),
+      obscureText: true,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor ingrese su contraseña';
+        }
+        return null;
+      },
+    );
+  }
 
-final TextEditingController _correo = TextEditingController();
-final TextEditingController _contrasenia = TextEditingController();
+  Widget _buildLoginButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        if (_formKey.currentState?.validate() ?? false) {
+          _showLoginDialog(context);
+        }
+      },
+      child: const Text('Iniciar Sesión'),
+    );
+  }
 
-Widget BotonInicio(context) {
-  return (ElevatedButton(
-    onPressed: () {
-      alerta(context);
-    },
-    child: Text("Iniciar Sesión"),
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 8, 8, 8),
-    ),
-  ));
-}
+  Widget _buildRegistroButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Registro()),
+        );
+      },
+      child: const Text('Registrarse'),
+    );
+  }
 
-void alerta(context) {
-  showDialog(
+  void _showLoginDialog(BuildContext context) {
+    showDialog(
       context: context,
       builder: (context) {
-        return (AlertDialog(
-          title: Text("Credenciales Correctas"),
+        return AlertDialog(
+          title: const Text('Credenciales Correctas'),
           actions: [
             TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Catalogo()));
-                },
-                child: Text("Ver Catalogo"))
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Aplicacion3()),
+                );
+              },
+              child: const Text('Ver Catálogo'),
+            ),
           ],
-        ));
-      });
-}
-
-Widget BotonRegistro(context) {
-  return (ElevatedButton(
-    onPressed: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Registro()));
-    },
-    child: Text("Registrarse"),
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 8, 8, 8),
-    ),
-  ));
+        );
+      },
+    );
+  }
 }

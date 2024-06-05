@@ -4,7 +4,7 @@
             "outputFile": "com.example.app_streming_pro.app-mergeDebugResources-9:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ItsqmetEstudiantes\\Documents\\I\\MoviIII\\app_streming_pro\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\app-movil-flutter-streamig\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
