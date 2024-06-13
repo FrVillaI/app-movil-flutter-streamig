@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'registro.dart';
 import 'Catalogo.dart';
@@ -25,29 +26,34 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  final TextEditingController _correoController = TextEditingController();
-  final TextEditingController _contraseniaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      decoration: const BoxDecoration(color: Color.fromARGB(255, 96, 143, 114)),
+      color: Color.fromARGB(255, 58, 255, 58),
       child: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildCorreoField(),
-              const SizedBox(height: 16.0),
-              _buildContraseniaField(),
-              const SizedBox(height: 16.0),
-              _buildLoginButton(context),
-              const SizedBox(height: 16.0),
-              _buildRegistroButton(context),
-            ],
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.white, // Fondo blanco del cuadro
+            borderRadius: BorderRadius.circular(12.0), // Bordes redondeados
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildCorreoField(),
+                const SizedBox(height: 16.0),
+                _buildContraseniaField(),
+                const SizedBox(height: 16.0),
+                _buildLoginButton(context),
+                const SizedBox(height: 16.0),
+                _buildRegistroButton(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -92,11 +98,15 @@ class _LoginBodyState extends State<LoginBody> {
   Widget _buildLoginButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          _showLoginDialog(context);
-        }
+        login(context);
       },
-      child: const Text('Iniciar Sesión'),
+      child: const Text(
+        'Iniciar Sesión',
+        style: TextStyle(color: Colors.white), // Color del texto blanco
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black, // Color del botón negro
+      ),
     );
   }
 
@@ -108,7 +118,13 @@ class _LoginBodyState extends State<LoginBody> {
           MaterialPageRoute(builder: (context) => Registro()),
         );
       },
-      child: const Text('Registrarse'),
+      child: const Text(
+        'Registrarse',
+        style: TextStyle(color: Colors.white), // Color del texto blanco
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black, // Color del botón negro
+      ),
     );
   }
 
@@ -133,4 +149,46 @@ class _LoginBodyState extends State<LoginBody> {
       },
     );
   }
+}
+
+final TextEditingController _correoController = TextEditingController();
+final TextEditingController _contraseniaController = TextEditingController();
+
+Future<void> login(BuildContext context) async {
+  try {
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _correoController.text,
+      password: _contraseniaController.text
+    );
+    // Si el inicio de sesión es exitoso, mostrar el diálogo
+    _showLoginDialog(context);
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided for that user.');
+    }
+  }
+}
+
+void _showLoginDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Credenciales Correctas'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Catalogo()),
+              );
+            },
+            child: const Text('Ver Catálogo'),
+          ),
+        ],
+      );
+    },
+  );
 }

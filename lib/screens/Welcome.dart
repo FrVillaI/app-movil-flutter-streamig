@@ -1,3 +1,5 @@
+import 'package:app_streming_pro/screens/Catalogo.dart';
+import 'package:app_streming_pro/screens/FormularioScreen.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'registro.dart';
@@ -23,13 +25,22 @@ class WelcomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 96, 143, 114),
+        color: Color.fromARGB(255, 58, 255, 58), // Color verde fosforescente
       ),
       padding: const EdgeInsets.all(16.0),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const Text(
+              '¡Bienvenido a nuestra aplicación de streaming!',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16.0),
             _buildLoginButton(context),
             const SizedBox(height: 16.0),
             _buildRegisterButton(context),
@@ -47,9 +58,12 @@ class WelcomeBody extends StatelessWidget {
           MaterialPageRoute(builder: (context) => const Login()),
         );
       },
-      child: const Text('Iniciar Sesión'),
+      child: const Text(
+        'Iniciar Sesión',
+        style: TextStyle(color: Colors.white), // Color del texto blanco
+      ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 8, 8, 8),
+        backgroundColor: Colors.black, // Color del botón negro
       ),
     );
   }
@@ -62,9 +76,12 @@ class WelcomeBody extends StatelessWidget {
           MaterialPageRoute(builder: (context) => const Registro()),
         );
       },
-      child: const Text('Registrarse'),
+      child: const Text(
+        'Registrarse',
+        style: TextStyle(color: Colors.white), // Color del texto blanco
+      ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 8, 8, 8),
+        backgroundColor: Colors.black, // Color del botón negro
       ),
     );
   }

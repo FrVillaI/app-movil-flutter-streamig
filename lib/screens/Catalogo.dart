@@ -1,3 +1,4 @@
+import 'package:app_streming_pro/screens/Reproduccion.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -52,6 +53,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Catálogo de Películas'),
       ),
+      backgroundColor: Colors.grey[200], // Fondo gris claro
       body: _buildBody(),
     );
   }
@@ -60,20 +62,44 @@ class _HomeState extends State<Home> {
     return ListView.builder(
       itemCount: peliculas.length,
       itemBuilder: (context, index) {
-        return _buildMovieCard(peliculas[index]);
+        return _buildMovieCard(context, peliculas[index]);
       },
     );
   }
 
-  Widget _buildMovieCard(Map<String, String> pelicula) {
+  Widget _buildMovieCard(BuildContext context, Map<String, String> pelicula) {
     return Card(
+      color: Colors.white, // Fondo blanco del card
       margin: const EdgeInsets.all(8.0),
       child: ListTile(
         title: Text(pelicula['titulo']!),
         subtitle: Text(pelicula['descripcion']!),
         onTap: () {
-          // Acción al presionar una película
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PantallaTituloPelicula(),
+            ),
+          );
         },
+      ),
+    );
+  }
+}
+
+class Reproduccion extends StatelessWidget {
+  final Map<String, String> pelicula;
+
+  const Reproduccion({super.key, required this.pelicula});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(pelicula['titulo']!),
+      ),
+      body: Center(
+        child: Text('Reproduciendo ${pelicula['titulo']}'),
       ),
     );
   }
